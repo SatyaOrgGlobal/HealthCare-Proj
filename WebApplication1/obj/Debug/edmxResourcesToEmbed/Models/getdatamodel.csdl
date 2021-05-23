@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SatyaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="catId" />
+    </Key>
+    <Property Name="catId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="catName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Post">
+    <Key>
+      <PropertyRef Name="PostId" />
+    </Key>
+    <Property Name="PostId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PostWeight" Type="Int32" />
+    <Property Name="PostName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="catId" Type="Int32" />
+  </EntityType>
+  <EntityContainer Name="SatyaDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Posts" EntityType="Self.Post" />
+    <FunctionImport Name="GetDataByIdName" ReturnType="Collection(SatyaDBModel.GetDataByIdName_Result)">
+      <Parameter Name="name" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="search">
+      <Parameter Name="name" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetDataByIdName_Result">
+    <Property Type="Int32" Name="PostId" Nullable="false" />
+    <Property Type="Int32" Name="PostWeight" Nullable="true" />
+    <Property Type="String" Name="PostName" Nullable="true" />
+    <Property Type="Int32" Name="catId" Nullable="true" />
+    <Property Type="String" Name="catName" Nullable="true" MaxLength="50" />
+  </ComplexType>
+</Schema>
